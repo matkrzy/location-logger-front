@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Paper, Grid, Button, Typography, withStyles } from 'material-ui';
 import { Field } from 'redux-form';
-import { required, email, confirmation, length } from 'redux-form-validators';
+import { required, email } from 'redux-form-validators';
 import { Link } from 'react-router-dom';
 
 import { routes } from '../routes';
 import { textField } from '../shared/text-field/textField';
-import { styles } from './Register.styles';
+import { styles } from './ForgotPassword.styles';
 
-class Register extends Component {
+class ForgotPassword extends Component {
   render() {
     const { classes, invalid, handleSubmit, dirty } = this.props;
 
@@ -17,7 +17,7 @@ class Register extends Component {
         <Grid item xs={3}>
           <Paper className={classes.wrapper}>
             <Typography variant="headline" className={classes.headline}>
-              Account register
+              Password remind
             </Typography>
             <form
               noValidate="novalidate"
@@ -33,31 +33,9 @@ class Register extends Component {
                 validate={[required(), email()]}
               />
 
-              <Field
-                name="password"
-                component={textField}
-                label="Password"
-                placeholder="Enter password"
-                type="password"
-                validate={[required(), length({ minimum: 8 })]}
-                fullWidth
-              />
-
-              <Field
-                name="password_repeat"
-                component={textField}
-                label="Repeat Password"
-                placeholder="Repeat password"
-                type="password"
-                validate={[
-                  required(),
-                  confirmation({ field: 'password', fieldLabel: 'Password' }),
-                ]}
-                fullWidth
-              />
-
-              <div className={classes.member}>
-                Already member? <Link to={routes.login}>Log in</Link>
+              <div className={classes.links}>
+                <Link to={routes.register}>Sign up</Link>
+                <Link to={routes.login}>Log in</Link>
               </div>
 
               <div className={classes.buttons}>
@@ -68,7 +46,7 @@ class Register extends Component {
                   disabled={invalid || !dirty}
                   fullWidth
                 >
-                  register
+                  reset password
                 </Button>
               </div>
             </form>
@@ -79,4 +57,4 @@ class Register extends Component {
   }
 }
 
-export const RegisterComponent = withStyles(styles)(Register);
+export const ForgotPasswordComponent = withStyles(styles)(ForgotPassword);

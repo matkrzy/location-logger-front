@@ -10,7 +10,7 @@ import { styles } from './Login.styles';
 
 class Login extends Component {
   render() {
-    const { classes, invalid, handleSubmit } = this.props;
+    const { classes, invalid, handleSubmit, dirty } = this.props;
 
     return (
       <Grid container justify="center">
@@ -58,7 +58,7 @@ class Login extends Component {
                   type="submit"
                   variant="raised"
                   color="primary"
-                  disabled={invalid}
+                  disabled={invalid || !dirty}
                   fullWidth
                 >
                   login
