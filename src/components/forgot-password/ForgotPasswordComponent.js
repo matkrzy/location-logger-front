@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 import { routes } from '../routes';
 import { textField } from '../shared/text-field/textField';
-import { styles } from './Login.styles';
+import { styles } from './ForgotPassword.styles';
 
-class Login extends Component {
+class ForgotPassword extends Component {
   render() {
     const { classes, invalid, handleSubmit, dirty } = this.props;
 
@@ -17,7 +17,7 @@ class Login extends Component {
         <Grid item xs={3}>
           <Paper className={classes.wrapper}>
             <Typography variant="headline" className={classes.headline}>
-              Account login
+              Password remind
             </Typography>
             <form
               noValidate="novalidate"
@@ -33,24 +33,9 @@ class Login extends Component {
                 validate={[required(), email()]}
               />
 
-              <Field
-                name="password"
-                component={textField}
-                label="Password"
-                placeholder="Enter password"
-                type="password"
-                validate={[required()]}
-                fullWidth
-              />
-              <Link
-                to={routes.forgotPassword}
-                className={classes.forgotPassword}
-              >
-                Forgot password?
-              </Link>
-
-              <div className={classes.notMember}>
-                Don't have an account? <Link to={routes.register}>Sign up</Link>
+              <div className={classes.links}>
+                <Link to={routes.register}>Sign up</Link>
+                <Link to={routes.login}>Log in</Link>
               </div>
 
               <div className={classes.buttons}>
@@ -61,7 +46,7 @@ class Login extends Component {
                   disabled={invalid || !dirty}
                   fullWidth
                 >
-                  login
+                  reset password
                 </Button>
               </div>
             </form>
@@ -72,4 +57,4 @@ class Login extends Component {
   }
 }
 
-export const LoginComponent = withStyles(styles)(Login);
+export const ForgotPasswordComponent = withStyles(styles)(ForgotPassword);
