@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { withStyles } from 'material-ui';
 
-import {MenuContainer} from '../menu/MenuContainer';
-import {routes} from '../routes';
+import { styles } from './Home.styles';
+import { routes } from 'components/routes';
+import { Wrapper } from 'components/shared/wrapper/Wrapper';
+import { MenuContainer } from 'components/menu/MenuContainer';
+import { SectionContainer } from 'components/shared/section/SectionContainer';
+import { TracksContainer } from 'components/tracks/TracksContainer';
 
-export class HomeComponent extends Component {
-  
+class Home extends Component {
   render() {
     return (
-      <div>
-        HOME
-        
-        <MenuContainer/>
-      </div>
+      <Wrapper>
+        <MenuContainer />
+
+        <Switch>
+          <Route path={routes.tracks}>
+            <Wrapper>
+              <SectionContainer title="List of all saved tracks">
+                <TracksContainer />
+              </SectionContainer>
+            </Wrapper>
+          </Route>
+        </Switch>
+      </Wrapper>
     );
   }
 }
+
+export const HomeComponent = withStyles(styles)(Home);

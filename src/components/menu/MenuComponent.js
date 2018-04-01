@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   withStyles,
   Drawer,
@@ -16,32 +17,36 @@ import { routes } from '../routes';
 
 class Menu extends Component {
   menu = [
-    { icon: 'history', label: 'History', action: () => console.log('history') },
+    {
+      icon: 'history',
+      label: 'History',
+      action: routes.tracks,
+    },
     {
       icon: 'phonelink',
       label: 'Devices',
-      action: () => console.log('devices'),
+      action: routes.devices,
     },
     {
       icon: 'settings',
       label: 'Settings',
-      action: () => console.log('settings'),
+      action: routes.settings.main,
     },
     {
       icon: 'close',
       label: 'Logout',
-      action: () => this.props.history.push(routes.login),
+      action: routes.logout,
     },
   ];
 
   render() {
-    const { classes, user, open } = this.props;
+    const { classes, user, isOpen } = this.props;
 
     return (
       <Drawer
         anchor="right"
         variant="persistent"
-        open={open}
+        open={isOpen}
         className={classes.drawer}
         PaperProps={{
           classes: { root: classes.paper },
@@ -65,10 +70,12 @@ class Menu extends Component {
         <List component="nav" className={classes.menu}>
           {this.menu.map((item, i) => (
             <ListItem
-              button
               key={i}
-              onClick={item.action}
+              button
+              component={NavLink}
+              activeClassName={classes.active}
               className={classes.menuItem}
+              to={item.action}
             >
               <ListItemIcon>
                 <Icon>{item.icon}</Icon>

@@ -10,17 +10,15 @@ import { HomeComponent } from './home/HomeComponent';
 export class App extends Component {
   render() {
     return (
-      <div>
-        <Switch>
-          <Route path={routes.login} component={LoginContainer} />
-          <Route path={routes.register} component={RegisterContainer} />
-          <Route
-            path={routes.forgotPassword}
-            component={ForgotPasswordContainer}
-          />
-          <Route path={routes.home} component={HomeComponent} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path={routes.login} component={LoginContainer} />
+        <Route path={routes.register} component={RegisterContainer} />
+        <Route
+          path={routes.forgotPassword}
+          component={ForgotPasswordContainer}
+        />
+        <Route path={routes.home} component={HomeComponent} />
+      </Switch>
     );
   }
 }

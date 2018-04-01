@@ -1,9 +1,15 @@
 export const routes = {
   home: '/',
   login: '/login',
+  logout: '/logout',
   register: '/register',
   forgotPassword: '/forgot-password',
   settings: {
-    profile: '/profile',
+    main: '/settings',
+    profile: '/settings/profile',
   },
+  tracks: '/tracks',
+  track: '/track/{id}',
+  devices: '/devices',
+  device: '/device/{id}',
 };
