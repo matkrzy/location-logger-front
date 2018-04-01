@@ -6,7 +6,7 @@ export const styles = theme => ({
     color: '#fff',
   },
   paper: {
-    minWidth: 300,
+    width: 300,
     backgroundColor: blue[500],
     color: grey[50],
     padding: theme.spacing.unit * 2,
@@ -46,13 +46,16 @@ export const styles = theme => ({
   email: {
     color: '#fff',
   },
-  menu:{
-    marginTop: 40
+  menu: {
+    marginTop: 40,
   },
   menuItem: {
     color: '#fff',
     '&  *': {
       color: '#fff',
     },
+  },
+  active: {
+    backgroundColor: theme.palette.action.hover,
   },
 });
