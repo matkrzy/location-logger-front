@@ -10,8 +10,9 @@ export const dialogRegister = data => ({
   payload: data,
 });
 
-export const dialogDestroy = () => ({
+export const dialogDestroy = data => ({
   type: DIALOG_DESTROY,
+  payload: data,
 });
 
 export const dialogOpen = data => ({
