@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import { TracksComponent } from './TracksComponent';
 import { dialogOpen } from 'redux/dialog/actions';
@@ -45,6 +47,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { dialogOpen };
 
-export const TracksContainer = connect(mapStateToProps, mapDispatchToProps)(
-  TracksComponent,
-);
+export const TracksContainer = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(TracksComponent);

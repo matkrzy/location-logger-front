@@ -15,6 +15,7 @@ import { Wrapper } from '../shared/wrapper/Wrapper';
 import { ActionMenuComponent } from 'components/shared/action-menu/ActionMenuComponent';
 import { DialogContainer } from 'components/shared/dialog/DialogContainer';
 import { DeleteContainer } from './delete/DeleteContainer';
+import { routes } from 'components/routes';
 
 class Tracks extends Component {
   constructor(props) {
@@ -45,8 +46,6 @@ class Tracks extends Component {
     ];
   };
 
-  onRowClick = id => console.log('show track by id:', id);
-
   renderRow = (track, i) => {
     const { classes } = this.props;
 
@@ -70,6 +69,8 @@ class Tracks extends Component {
       </TableRow>
     );
   };
+
+  onRowClick = id => this.props.history.push(`${routes.track}${id}`);
 
   onSortClick = columnName => {
     const { orderBy, direction } = this.state;

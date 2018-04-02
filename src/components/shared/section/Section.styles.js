@@ -12,4 +12,9 @@ export const styles = theme => ({
   withMenu: {
     paddingRight: 360,
   },
+  backLink: {
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
