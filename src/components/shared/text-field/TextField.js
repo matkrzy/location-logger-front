@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextField } from 'material-ui';
+import { TextField as Field } from 'material-ui';
 
-export const textField = ({ input, meta, ...rest }) => (
-  <TextField
+export const TextField = ({ input, meta, ...rest }) => (
+  <Field
     autoComplete="off"
     {...input}
     {...rest}
