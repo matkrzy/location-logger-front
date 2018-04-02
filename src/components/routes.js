@@ -4,10 +4,7 @@ export const routes = {
   logout: '/logout',
   register: '/register',
   forgotPassword: '/forgot-password',
-  settings: {
-    main: '/settings',
-    profile: '/settings/profile',
-  },
+  settings: '/settings',
   tracks: '/tracks',
   track: '/track/',
   trackById: '/track/:id',

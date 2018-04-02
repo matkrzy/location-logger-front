@@ -10,6 +10,7 @@ import { SectionContainer } from 'components/shared/section/SectionContainer';
 import { TracksContainer } from 'components/tracks/TracksContainer';
 import { TrackDetailsContainer } from 'components/tracks/details/TrackDetailsContainer';
 import { DevicesContainer } from 'components/devices/DevicesContainer';
+import { SettingsContainer } from 'components/settings/SettingsContainer';
 
 class Home extends Component {
   render() {
@@ -36,6 +37,13 @@ class Home extends Component {
             <Wrapper>
               <SectionContainer title="List of devices">
                 <DevicesContainer />
+              </SectionContainer>
+            </Wrapper>
+          </Route>
+          <Route path={routes.settings}>
+            <Wrapper>
+              <SectionContainer title="Settings">
+                <SettingsContainer />
               </SectionContainer>
             </Wrapper>
           </Route>

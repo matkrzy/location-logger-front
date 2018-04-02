@@ -30,7 +30,7 @@ class Menu extends Component {
     {
       icon: 'settings',
       label: 'Settings',
-      action: routes.settings.main,
+      action: routes.settings,
     },
     {
       icon: 'close',

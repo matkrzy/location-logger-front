@@ -3,7 +3,6 @@ import {
   withStyles,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   Typography,
