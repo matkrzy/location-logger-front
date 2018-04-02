@@ -8,6 +8,7 @@ import { Wrapper } from 'components/shared/wrapper/Wrapper';
 import { MenuContainer } from 'components/menu/MenuContainer';
 import { SectionContainer } from 'components/shared/section/SectionContainer';
 import { TracksContainer } from 'components/tracks/TracksContainer';
+import { TrackDetailsContainer } from 'components/tracks/details/TrackDetailsContainer';
 
 class Home extends Component {
   render() {
@@ -20,6 +21,13 @@ class Home extends Component {
             <Wrapper>
               <SectionContainer title="List of all saved tracks">
                 <TracksContainer />
+              </SectionContainer>
+            </Wrapper>
+          </Route>
+          <Route path={routes.trackById}>
+            <Wrapper>
+              <SectionContainer title="Track details" backLink={routes.tracks}>
+                <TrackDetailsContainer />
               </SectionContainer>
             </Wrapper>
           </Route>

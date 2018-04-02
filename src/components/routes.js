@@ -9,7 +9,8 @@ export const routes = {
     profile: '/settings/profile',
   },
   tracks: '/tracks',
-  track: '/track/{id}',
+  track: '/track/',
+  trackById: '/track/:id',
   devices: '/devices',
   device: '/device/{id}',
 };
