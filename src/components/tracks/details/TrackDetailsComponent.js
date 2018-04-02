@@ -21,6 +21,14 @@ class TrackDetails extends Component {
     chartData: 'speed',
   };
 
+  componentWillMount() {
+    this.props.toggleMenu();
+  }
+
+  componentWillUnmount() {
+    this.props.toggleMenu();
+  }
+
   handleChange = event => {
     this.setState({ chartData: event.target.value });
   };
@@ -58,14 +66,29 @@ class TrackDetails extends Component {
         <MapComponent points={points} />
         <div className={classes.detailsPanel}>
           <DetailsColumn label="Name" value={name} />
-          <DetailsColumn label="Date" value={moment(date).format("DD/MM/YYYY").toString()} />
+          <DetailsColumn
+            label="Date"
+            value={moment(date)
+              .format('DD/MM/YYYY')
+              .toString()}
+          />
           <DetailsColumn label="Distance (km)" value={`${distance}`} />
           <DetailsColumn
             label="Duration (h)"
             value={this.formatDuration(duration)}
           />
-          <DetailsColumn label="Start time" value={moment(startTime).format("HH:MM:SS").toString()} />
-          <DetailsColumn label="End time" value={moment(endTime).format("HH:MM:SS").toString()} />
+          <DetailsColumn
+            label="Start time"
+            value={moment(startTime)
+              .format('HH:MM:SS')
+              .toString()}
+          />
+          <DetailsColumn
+            label="End time"
+            value={moment(endTime)
+              .format('HH:MM:SS')
+              .toString()}
+          />
           <DetailsColumn label="Max. speed (km/h)" value={`${maxSpeed}`} />
           <DetailsColumn label="Avg. speed (km/h)" value={`${avgSpeed}`} />
           <DetailsColumn label="Min. speed (km/h)" value={`${minSpeed}`} />

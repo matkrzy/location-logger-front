@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 
 import { TrackDetailsComponent } from './TrackDetailsComponent';
-
-
-import {points} from './randomData';
+import { points } from './randomData';
+import { toggleMenu } from 'redux/menu/actions';
 
 const mapStateToProps = state => ({
   id: 1,
@@ -20,10 +19,10 @@ const mapStateToProps = state => ({
   avgAltitude: 120,
   minAltitude: 90,
   removed: false,
-  points
+  points,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { toggleMenu };
 
 export const TrackDetailsContainer = connect(
   mapStateToProps,
