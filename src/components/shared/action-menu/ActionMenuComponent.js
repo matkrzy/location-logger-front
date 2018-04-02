@@ -38,11 +38,8 @@ export class ActionMenuComponent extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {options.map(option => (
-            <MenuItem
-              key={option}
-              onClick={() => this.handleClose(option.onClick)}
-            >
+          {options.map((option, i) => (
+            <MenuItem key={i} onClick={() => this.handleClose(option.onClick)}>
               {option.label}
             </MenuItem>
           ))}

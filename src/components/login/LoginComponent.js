@@ -5,7 +5,7 @@ import { required, email } from 'redux-form-validators';
 import { Link } from 'react-router-dom';
 
 import { routes } from '../routes';
-import { textField } from '../shared/text-field/textField';
+import { TextField } from '../shared/text-field/TextField';
 import { styles } from './Login.styles';
 
 class Login extends Component {
@@ -26,7 +26,7 @@ class Login extends Component {
             >
               <Field
                 name="login"
-                component={textField}
+                component={TextField}
                 label="Login"
                 placeholder="Enter login"
                 fullWidth
@@ -35,7 +35,7 @@ class Login extends Component {
 
               <Field
                 name="password"
-                component={textField}
+                component={TextField}
                 label="Password"
                 placeholder="Enter password"
                 type="password"

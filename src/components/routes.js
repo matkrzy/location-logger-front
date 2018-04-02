@@ -12,5 +12,6 @@ export const routes = {
   track: '/track/',
   trackById: '/track/:id',
   devices: '/devices',
-  device: '/device/{id}',
+  device: '/device/',
+  deviceById: '/device/:id',
 };

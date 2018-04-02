@@ -9,6 +9,7 @@ import { MenuContainer } from 'components/menu/MenuContainer';
 import { SectionContainer } from 'components/shared/section/SectionContainer';
 import { TracksContainer } from 'components/tracks/TracksContainer';
 import { TrackDetailsContainer } from 'components/tracks/details/TrackDetailsContainer';
+import { DevicesContainer } from 'components/devices/DevicesContainer';
 
 class Home extends Component {
   render() {
@@ -28,6 +29,13 @@ class Home extends Component {
             <Wrapper>
               <SectionContainer title="Track details" backLink={routes.tracks}>
                 <TrackDetailsContainer />
+              </SectionContainer>
+            </Wrapper>
+          </Route>
+          <Route path={routes.devices}>
+            <Wrapper>
+              <SectionContainer title="List of devices">
+                <DevicesContainer />
               </SectionContainer>
             </Wrapper>
           </Route>
