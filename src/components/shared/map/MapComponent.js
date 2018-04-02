@@ -11,7 +11,6 @@ import { Wrapper } from '../wrapper/Wrapper';
 const Map = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
-      ref={map => !!map && map.fitBounds(map.getBounds())}
       defaultZoom={props.defaultZoom}
       defaultCenter={{ lat: -34.397, lng: 150.644 }}
     >
