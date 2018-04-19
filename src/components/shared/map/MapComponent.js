@@ -12,7 +12,7 @@ const Map = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       defaultZoom={props.defaultZoom}
-      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      defaultCenter={props.points[Math.round(((props.points.length - 1)/2))]}
     >
       {!!props.points && (
         <Wrapper>
@@ -23,7 +23,7 @@ const Map = withScriptjs(
               strokeColor: '#3f51b5',
               geodesic: true,
               strokeOpacity: 0.8,
-              strokeWeight: 1.5,
+              strokeWeight: 2.5,
             }}
           />
           <Marker position={props.points[props.points.length - 1]} label="B" />
@@ -37,7 +37,7 @@ export class MapComponent extends Component {
   static defaultProps = {
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${process.env
       .REACT_APP_GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
-    defaultZoom: 8,
+    defaultZoom: 11,
     loadingElement: <div style={{ height: `500px` }} />,
     containerElement: <div style={{ height: `500px` }} />,
     mapElement: <div style={{ height: `100%` }} />,

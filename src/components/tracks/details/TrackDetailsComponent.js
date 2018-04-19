@@ -60,10 +60,14 @@ class TrackDetails extends Component {
     } = this.props;
 
     const { chartData } = this.state;
+    const chartFillColor = chartData === 'speed' ? '#3f51b5' : '#009688';
+    const chartStrokeColor = chartData === 'speed' ? '#3f51b5' : '#009688';
+    const chartMin = chartData === 'speed' ? minSpeed : minAltitude;
+    const chartMax = chartData === 'speed' ? maxSpeed : maxAltitude;
 
     return (
       <Wrapper>
-        <MapComponent points={points} />
+        <MapComponent points={points}/>
         <div className={classes.detailsPanel}>
           <DetailsColumn label="Name" value={name} />
           <DetailsColumn
@@ -80,13 +84,13 @@ class TrackDetails extends Component {
           <DetailsColumn
             label="Start time"
             value={moment(startTime)
-              .format('HH:MM:SS')
+              .format('HH:mm:ss')
               .toString()}
           />
           <DetailsColumn
             label="End time"
             value={moment(endTime)
-              .format('HH:MM:SS')
+              .format('HH:mm:ss')
               .toString()}
           />
           <DetailsColumn label="Max. speed (km/h)" value={`${maxSpeed}`} />
@@ -118,15 +122,15 @@ class TrackDetails extends Component {
         <div className={classes.chart}>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={points}>
-              <XAxis dataKey="timestamp" />
-              <YAxis />
+              <XAxis dataKey="duration"/>
+              <YAxis type="number" domain={[chartMin, chartMax]} />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
               <Area
                 type="monotone"
                 dataKey={chartData}
-                stroke="#3f51b5"
-                fill="#3f51b5"
+                stroke={chartStrokeColor}
+                fill={chartFillColor}
               />
             </AreaChart>
           </ResponsiveContainer>

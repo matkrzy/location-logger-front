@@ -1,28 +1,61 @@
 import { connect } from 'react-redux';
+import findMaxBy from 'lodash/maxBy';
+import findMinBy from 'lodash/minBy';
+import moment from 'moment';
 
 import { TrackDetailsComponent } from './TrackDetailsComponent';
 import { points } from './randomData';
 import { toggleMenu } from 'redux/menu/actions';
+import { getDistance } from 'components/utils/distance';
 
 const mapStateToProps = state => ({
   id: 1,
   name: 'Forest running',
-  date: 1522692378661,
-  distance: 56.4,
-  duration: 1584,
-  startTime: 1522692378661,
-  endTime: 1522692586070,
-  maxSpeed: 66.2,
-  avgSpeed: 45.4,
-  minSpeed: 15.2,
-  maxAltitude: 200,
-  avgAltitude: 120,
-  minAltitude: 90,
+  date: points[0].timestamp,
+  distance: points.reduce((acc, val, i) => {
+    if (i > 0) {
+      const end = val;
+      const start = points[i - 1];
+      const distance = getDistance(start, end);
+      return acc + distance;
+    }
+    
+    return acc;
+
+  }, 0).toFixed(2),
+  duration: moment.utc(moment(points[points.length - 1].timestamp).diff(moment(points[0].timestamp))).format(
+    "HH:mm:ss"),
+  startTime: points[0].timestamp,
+  endTime: points[points.length - 1].timestamp,
+  maxSpeed: findMaxBy(points, point => point.speed).speed,
+  avgSpeed: (points.reduce((acc, val) => acc + val.speed, 0) / points.length
+  ).toFixed(2),
+  minSpeed: findMinBy(points.filter(item => !!item.speed), point => point.speed)
+    .speed,
+  maxAltitude: findMaxBy(points, point => point.altitude).altitude,
+  avgAltitude: (points.reduce((acc, val) => acc + val.altitude, 0) /
+    points.length
+  ).toFixed(2),
+  minAltitude: findMinBy(
+    points.filter(item => !!item.altitude),
+    point => point.altitude,
+  ).altitude,
   removed: false,
-  points,
+  points: points.map(point => {
+
+    const start = moment(points[0].timestamp);
+    const then = moment(point.timestamp);
+    const diff = moment.utc(then.diff(start)).format("mm:ss").split(":");
+
+    return {
+      ...point,
+      duration: `${diff[0]}m:${diff[1]}s`
+    }
+
+  })
 });
 
-const mapDispatchToProps = { toggleMenu };
+const mapDispatchToProps = {toggleMenu};
 
 export const TrackDetailsContainer = connect(
   mapStateToProps,
