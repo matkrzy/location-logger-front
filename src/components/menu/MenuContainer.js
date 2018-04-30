@@ -3,17 +3,14 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { MenuComponent } from './MenuComponent';
+import { logout } from 'redux/auth/actions';
 
-const mapStateToProps = ({ menu }) => ({
+const mapStateToProps = ({ menu, auth: { user } }) => ({
   ...menu,
-  user: {
-    id: 1,
-    email: 'user.name@userservice.com',
-    removed: false,
-  },
+  user,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { logout };
 
 export const MenuContainer = compose(
   withRouter,

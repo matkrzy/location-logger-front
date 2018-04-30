@@ -25,10 +25,10 @@ class Register extends Component {
               onSubmit={handleSubmit}
             >
               <Field
-                name="login"
+                name="username"
                 component={TextField}
-                label="Login"
-                placeholder="Enter login"
+                label="login"
+                placeholder="Enter e-mail"
                 fullWidth
                 validate={[required(), email()]}
               />

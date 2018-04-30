@@ -8,6 +8,7 @@ import {
   TableBody,
   Button,
   TextField,
+  Typography,
 } from 'material-ui';
 
 import { styles } from './Devices.styles';
@@ -17,16 +18,26 @@ import { Wrapper } from 'components/shared/wrapper/Wrapper';
 import { DeleteContainer } from './delete/DeleteContainer';
 import { AddContainer } from './add/AddContainer';
 import { DetailsContainer } from './details/DetailsContainer';
+import { LoaderComponent } from 'components/shared/loader/Loader';
+import { EditContainer } from './edit/EditContainer';
 
 class Devices extends Component {
   state = {
     filter: '',
   };
 
+  componentWillMount() {
+    this.props.fetchDevices();
+  }
+
   options = data => {
     const { dialogOpen } = this.props;
 
     return [
+      {
+        label: 'edit',
+        onClick: () => dialogOpen({ name: 'editDevice', params: { ...data } }),
+      },
       {
         label: 'delete',
         onClick: () =>
@@ -47,8 +58,12 @@ class Devices extends Component {
   };
 
   render() {
-    const { classes, devices } = this.props;
+    const { classes, items, loading } = this.props;
     const { filter } = this.state;
+
+    if (loading) {
+      return <LoaderComponent size={30} />;
+    }
 
     return (
       <Wrapper>
@@ -80,8 +95,8 @@ class Devices extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!!devices &&
-              devices
+            {!!items && !!items.length ? (
+              items
                 .filter(device =>
                   device.name.toUpperCase().includes(filter.toUpperCase()),
                 )
@@ -99,13 +114,21 @@ class Devices extends Component {
                       </TableCell>
                     </TableRow>
                   );
-                })}
+                })
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Typography align="center">the list is empty</Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
 
         <DialogContainer name="deleteDevice" component={DeleteContainer} />
         <DialogContainer name="addDevice" component={AddContainer} />
         <DialogContainer name="detailsDevice" component={DetailsContainer} />
+        <DialogContainer name="editDevice" component={EditContainer} />
       </Wrapper>
     );
   }

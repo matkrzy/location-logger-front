@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import './index.css';
-import { App } from './components/App';
+import { AppContainer } from './components/AppContainer';
 import registerServiceWorker from './registerServiceWorker';
 import { configureStore } from './redux/store';
 
@@ -24,10 +24,10 @@ const render = Component =>
 
 registerServiceWorker();
 
-render(App);
+render(AppContainer);
 
 if (module.hot) {
   module.hot.accept('./components/App', () => {
-    render(App);
+    render(AppContainer);
   });
 }
