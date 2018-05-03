@@ -25,7 +25,7 @@ class Login extends Component {
               onSubmit={handleSubmit}
             >
               <Field
-                name="login"
+                name="username"
                 component={TextField}
                 label="Login"
                 placeholder="Enter login"

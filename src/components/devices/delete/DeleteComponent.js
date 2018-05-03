@@ -12,7 +12,7 @@ import { styles } from './Delete.styles';
 import { Wrapper } from 'components/shared/wrapper/Wrapper';
 
 class Delete extends Component {
-  onConfirmClick = () => this.props.dialogClose();
+  onConfirmClick = () => this.props.removeDevice({ id: this.props.id });
   onCancelClick = () => this.props.dialogClose();
 
   render() {

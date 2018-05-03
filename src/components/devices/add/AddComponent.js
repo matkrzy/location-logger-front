@@ -30,7 +30,7 @@ class Add extends Component {
           <form onSubmit={handleSubmit} noValidate>
             <Field
               component={TextField}
-              name="device_name"
+              name="name"
               label="Device name"
               placeholder="Enter device name"
               fullWidth

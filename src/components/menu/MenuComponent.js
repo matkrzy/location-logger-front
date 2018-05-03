@@ -1,3 +1,5 @@
+import { LoaderComponent } from 'components/shared/loader/Loader';
+import { Wrapper } from 'components/shared/wrapper/Wrapper';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
@@ -16,28 +18,38 @@ import { styles } from './Menu.styles';
 import { routes } from '../routes';
 
 class Menu extends Component {
-  menu = [
-    {
-      icon: 'history',
-      label: 'History',
-      action: routes.tracks,
-    },
-    {
-      icon: 'phonelink',
-      label: 'Devices',
-      action: routes.devices,
-    },
-    {
-      icon: 'settings',
-      label: 'Settings',
-      action: routes.settings.main,
-    },
-    {
-      icon: 'close',
-      label: 'Logout',
-      action: routes.logout,
-    },
-  ];
+  menu = () => {
+    const { classes, logout } = this.props;
+    return [
+      {
+        icon: 'history',
+        label: 'History',
+        to: routes.tracks,
+        component: NavLink,
+        activeClassName: classes.active,
+      },
+      {
+        icon: 'phonelink',
+        label: 'Devices',
+        to: routes.devices,
+        component: NavLink,
+        activeClassName: classes.active,
+      },
+      //{
+      //  icon: 'settings',
+      //  label: 'Settings',
+      //  action: routes.settings.main,
+      //  component: NavLink
+      //  activeClassName:classes.active
+      //},
+      {
+        icon: 'close',
+        label: 'Logout',
+        component: null,
+        onClick: logout,
+      },
+    ];
+  };
 
   render() {
     const { classes, user, isOpen } = this.props;
@@ -52,38 +64,42 @@ class Menu extends Component {
           classes: { root: classes.paper },
         }}
       >
-        <div className={classes.logo}>
-          <Icon className={classes.place}>place</Icon>
-          <Icon className={classes.terrain}>terrain</Icon>
-          <Typography className={classes.title} align="center">
-            Location Tracker
-          </Typography>
-        </div>
+        {!user ? (
+          <LoaderComponent size={80} />
+        ) : (
+          <Wrapper>
+            <div className={classes.logo}>
+              <Icon className={classes.place}>place</Icon>
+              <Icon className={classes.terrain}>terrain</Icon>
+              <Typography className={classes.title} align="center">
+                Location Tracker
+              </Typography>
+            </div>
 
-        <Avatar className={classes.avatar}>
-          <Icon>person</Icon>
-        </Avatar>
-        <Typography align="center" className={classes.email}>
-          {user.email}
-        </Typography>
+            <Avatar className={classes.avatar}>
+              <Icon>person</Icon>
+            </Avatar>
+            <Typography align="center" className={classes.email}>
+              {user.username}
+            </Typography>
 
-        <List component="nav" className={classes.menu}>
-          {this.menu.map((item, i) => (
-            <ListItem
-              key={i}
-              button
-              component={NavLink}
-              activeClassName={classes.active}
-              className={classes.menuItem}
-              to={item.action}
-            >
-              <ListItemIcon>
-                <Icon>{item.icon}</Icon>
-              </ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItem>
-          ))}
-        </List>
+            <List component="nav" className={classes.menu}>
+              {this.menu().map(({ icon, label, ...other }, i) => (
+                <ListItem
+                  key={i}
+                  button
+                  className={classes.menuItem}
+                  {...other}
+                >
+                  <ListItemIcon>
+                    <Icon>{icon}</Icon>
+                  </ListItemIcon>
+                  <ListItemText primary={label} />
+                </ListItem>
+              ))}
+            </List>
+          </Wrapper>
+        )}
       </Drawer>
     );
   }
