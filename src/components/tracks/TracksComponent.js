@@ -8,7 +8,9 @@ import {
   TableCell,
   Typography,
   TableSortLabel,
+  TextField,
 } from 'material-ui';
+import moment from 'moment';
 
 import { styles } from './Tracks.styles';
 import { Wrapper } from '../shared/wrapper/Wrapper';
@@ -16,6 +18,8 @@ import { ActionMenuComponent } from 'components/shared/action-menu/ActionMenuCom
 import { DialogContainer } from 'components/shared/dialog/DialogContainer';
 import { DeleteContainer } from './delete/DeleteContainer';
 import { routes } from 'components/routes';
+import { LoaderComponent } from 'components/shared/loader/Loader';
+import { ImportContainer } from "components/tracks/import/ImportContainer";
 
 class Tracks extends Component {
   constructor(props) {
@@ -25,12 +29,17 @@ class Tracks extends Component {
       orderBy: 'name',
       direction: 'asc',
       tracks: this.props.tracks,
+      filter: '',
     };
+  }
+
+  componentWillMount() {
+    this.props.fetchTracksList();
   }
 
   componentWillReceiveProps(nextProps) {
     const { tracks } = this.state;
-    if (!tracks) {
+    if (tracks.length !== nextProps.tracks.length) {
       this.setState({ tracks: nextProps.tracks });
     }
   }
@@ -46,6 +55,20 @@ class Tracks extends Component {
     ];
   };
 
+  tracksOptions = () => {
+    const { dialogOpen } = this.props;
+
+    return [
+      {
+        label: 'import',
+        onClick: () => dialogOpen({ name: 'importTrack' }),
+      },
+    ];
+  };
+
+  formatDate = date => moment(date).format('DD/MM/YYYY');
+  formatDistance = distance => Math.round(distance / 1000 * 100) / 100;
+
   renderRow = (track, i) => {
     const { classes } = this.props;
 
@@ -55,14 +78,14 @@ class Tracks extends Component {
           {track.name}
         </TableCell>
         <TableCell onClick={() => this.onRowClick(track.id)}>
-          {track.date}
+          {this.formatDate(track.date)}
         </TableCell>
         <TableCell
           onClick={() => this.onRowClick(track.id)}
-        >{`${track.distance}km`}</TableCell>
+        >{`${this.formatDistance(track.distance)}km`}</TableCell>
         <TableCell
           onClick={() => this.onRowClick(track.id)}
-        >{`${track.time}h`}</TableCell>
+        >{`${track.duration}h`}</TableCell>
         <TableCell numeric>
           <ActionMenuComponent options={this.options(track)} />
         </TableCell>
@@ -101,11 +124,40 @@ class Tracks extends Component {
     this.setState({ tracks });
   };
 
+  handleChange = event => {
+    this.setState({
+      filter: event.target.value,
+    });
+  };
+
+  filterTrack = track => {
+    const { filter } = this.state;
+    const { name } = track;
+
+    return name.toLowerCase().includes(filter.toLowerCase());
+  };
+
   render() {
-    const { orderBy, direction, tracks } = this.state;
+    const { orderBy, direction, tracks, filter } = this.state;
+    const { loading, classes } = this.props;
+
+    if (loading) {
+      return <LoaderComponent size={30} />;
+    }
 
     return (
       <Wrapper>
+        <div className={classes.top}>
+          <TextField
+            id="filter"
+            label="Find track"
+            placeholder="Filter by name"
+            value={filter}
+            onChange={this.handleChange}
+            margin="normal"
+          />
+        </div>
+
         <Table>
           <TableHead>
             <TableRow>
@@ -145,12 +197,16 @@ class Tracks extends Component {
                   Duration
                 </TableSortLabel>
               </TableCell>
-              <TableCell />
+              <TableCell numeric>
+                <ActionMenuComponent options={this.tracksOptions()} />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {!!tracks.length ? (
-              tracks.map((track, i) => this.renderRow(track, i))
+              tracks
+                .filter(track => this.filterTrack(track))
+                .map((track, i) => this.renderRow(track, i))
             ) : (
               <TableRow>
                 <TableCell colSpan={5}>
@@ -162,6 +218,7 @@ class Tracks extends Component {
         </Table>
 
         <DialogContainer name="deleteTrack" component={DeleteContainer} />
+        <DialogContainer name="importTrack" component={ImportContainer} />
       </Wrapper>
     );
   }

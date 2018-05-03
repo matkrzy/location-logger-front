@@ -3,10 +3,13 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 
 import { LoginComponent } from './LoginComponent';
+import { login } from 'redux/auth/actions';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = { onSubmit: data => console.log(data) };
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(login(data)),
+});
 
 export const LoginContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),

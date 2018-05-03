@@ -3,25 +3,13 @@ import { connect } from 'react-redux';
 import { DevicesComponent } from './DevicesComponent';
 
 import { dialogOpen } from 'redux/dialog/actions';
+import { fetchDevices } from 'redux/devices/actions';
 
-const mapStateToProps = state => ({
-  devices: [
-    {
-      id: 1,
-      name: 'LG Nexus 5X',
-      uuid: '21bb24d8352511e8b4670ed5f89f718b',
-      removed: false,
-    },
-    {
-      id: 2,
-      name: 'Iphone 5s',
-      uuid: '21bb2776352511e8b4670ed5f89f718b',
-      removed: false,
-    },
-  ],
+const mapStateToProps = ({ devices }) => ({
+  ...devices,
 });
 
-const mapDispatchToProps = { dialogOpen };
+const mapDispatchToProps = { dialogOpen, fetchDevices };
 
 export const DevicesContainer = connect(mapStateToProps, mapDispatchToProps)(
   DevicesComponent,

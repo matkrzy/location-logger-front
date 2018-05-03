@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import { DeleteComponent } from './DeleteComponent';
+import { removeDevice } from 'redux/devices/actions';
 
-const mapStateToProps = state => ({});
+const mapDispatchToProps = {
+  removeDevice,
+};
 
-export const DeleteContainer = connect(mapStateToProps, null)(DeleteComponent);
+export const DeleteContainer = connect(null, mapDispatchToProps)(DeleteComponent);
