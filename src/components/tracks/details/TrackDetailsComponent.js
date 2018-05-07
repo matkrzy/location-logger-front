@@ -64,9 +64,7 @@ class TrackDetails extends Component {
     this.props.toggleMenu();
 
     const { match: { params: { id } } } = this.props;
-
     this.props.fetchTrackDetails(id);
-    this.props.fetchTrackPoints(id);
   }
 
   componentWillUnmount() {
@@ -101,8 +99,8 @@ class TrackDetails extends Component {
         maxAltitude,
         avgAltitude,
         minAltitude,
+        points,
       },
-      points,
       loading,
     } = this.props;
 
