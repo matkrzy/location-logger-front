@@ -4,9 +4,6 @@ import {
   TRACK_FETCH_DETAILS_REQUEST,
   TRACK_FETCH_DETAILS_SUCCESS,
   TRACK_FETCH_DETAILS_FAILURE,
-  TRACK_FETCH_POINTS_REQUEST,
-  TRACK_FETCH_POINTS_SUCCESS,
-  TRACK_FETCH_POINTS_FAILURE,
   TRACK_DELETE_REQUEST,
   TRACK_DELETE_SUCCESS,
   TRACK_DELETE_FAILURE,
@@ -24,17 +21,6 @@ export const fetchTrackDetails = id => ({
   },
 });
 
-export const fetchTrackPoints = id => ({
-  [RSAA]: {
-    endpoint: `/track/${id}/points`,
-    method: 'GET',
-    types: [
-      TRACK_FETCH_POINTS_REQUEST,
-      TRACK_FETCH_POINTS_SUCCESS,
-      TRACK_FETCH_POINTS_FAILURE,
-    ],
-  },
-});
 
 export const deleteTrack = id => ({
   [RSAA]: {
