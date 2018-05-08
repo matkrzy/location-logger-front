@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { withStyles } from 'material-ui';
 
 import { styles } from './Home.styles';
@@ -15,30 +15,31 @@ class Home extends Component {
   render() {
     return (
       <Wrapper>
-        <MenuContainer />
+        <MenuContainer/>
 
         <Switch>
           <Route path={routes.tracks}>
             <Wrapper>
               <SectionContainer title="List of all saved tracks">
-                <TracksContainer />
+                <TracksContainer/>
               </SectionContainer>
             </Wrapper>
           </Route>
           <Route path={routes.trackById}>
             <Wrapper>
               <SectionContainer title="Track details" backLink={routes.tracks}>
-                <TrackDetailsContainer />
+                <TrackDetailsContainer/>
               </SectionContainer>
             </Wrapper>
           </Route>
           <Route path={routes.devices}>
             <Wrapper>
               <SectionContainer title="List of devices">
-                <DevicesContainer />
+                <DevicesContainer/>
               </SectionContainer>
             </Wrapper>
           </Route>
+          <Redirect to={routes.tracks}/>
         </Switch>
       </Wrapper>
     );
