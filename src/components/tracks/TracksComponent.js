@@ -82,10 +82,10 @@ class Tracks extends Component {
         </TableCell>
         <TableCell
           onClick={() => this.onRowClick(track.id)}
-        >{`${this.formatDistance(track.distance)}km`}</TableCell>
+        >{`${this.formatDistance(track.distance)} km`}</TableCell>
         <TableCell
           onClick={() => this.onRowClick(track.id)}
-        >{`${track.duration}h`}</TableCell>
+        >{`${track.duration}`}</TableCell>
         <TableCell numeric>
           <ActionMenuComponent options={this.options(track)} />
         </TableCell>

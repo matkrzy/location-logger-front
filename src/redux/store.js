@@ -7,6 +7,8 @@ import createSagaMiddleware from 'redux-saga';
 import { bodyMiddleware } from './middleware/bodyMiddleware';
 import { endpointMiddleware } from './middleware/endpointMiddleware';
 import { authMiddleware } from './middleware/authMiddleware';
+import { errorsMiddleware } from './middleware/errorsMiddleware'
+import { validationMiddleware } from './middleware/validationMiddleware';
 import { saga } from './saga';
 
 import { reducers } from './reducers';
@@ -19,6 +21,8 @@ const middlewares = [
   endpointMiddleware,
   authMiddleware,
   apiMiddleware,
+  errorsMiddleware,
+  validationMiddleware,
   sagaMiddleware
 ];
 
@@ -34,7 +38,7 @@ export const configureStore = history => {
       applyMiddleware(...[...middlewares, routerMiddleware(history)]),
     ),
   );
-  
+
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       store.replaceReducer(reducers);
