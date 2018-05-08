@@ -16,6 +16,9 @@ export const trackReducer = (state = initState, { type, payload }) => {
     case TRACK_FETCH_DETAILS_REQUEST:
       return {
         ...state,
+        details: {
+          points: [],
+        },
         loading: true,
       };
     case TRACK_FETCH_DETAILS_SUCCESS:
