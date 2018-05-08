@@ -79,6 +79,7 @@ class Devices extends Component {
 
           <Button
             color="primary"
+            variant="raised"
             className={classes.addDevice}
             onClick={() => this.props.dialogOpen({ name: 'addDevice' })}
           >
