@@ -128,7 +128,10 @@ class TrackDetails extends Component {
               .format('DD/MM/YYYY')
               .toString()}
           />
-          <DetailsColumn label="Distance (km)" value={`${distance}`} />
+          <DetailsColumn
+            label="Distance (km)"
+            value={parseFloat((!!distance ? distance : 0.0) / 1000).toFixed(2)}
+          />
           <DetailsColumn
             label="Duration (h)"
             value={this.formatDuration(duration)}
