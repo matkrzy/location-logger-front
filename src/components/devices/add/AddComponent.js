@@ -18,7 +18,7 @@ class Add extends Component {
   onCancelClick = () => this.props.dialogClose();
 
   render() {
-    const { handleSubmit, invalid } = this.props;
+    const { handleSubmit, invalid, submitting } = this.props;
 
     return (
       <Wrapper>
@@ -39,13 +39,17 @@ class Add extends Component {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.onCancelClick} color="primary">
+          <Button
+            onClick={this.onCancelClick}
+            color="primary"
+            disabled={submitting}
+          >
             Cancel
           </Button>
           <Button
             color="primary"
             autoFocus
-            disabled={invalid}
+            disabled={invalid || submitting}
             onClick={handleSubmit}
           >
             Add

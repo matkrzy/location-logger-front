@@ -8,6 +8,7 @@ import { dialogReducer } from './dialog/reducers';
 import { tracksReducer } from './tracks/reducer';
 import { trackReducer } from './track/reducer';
 import { devicesReducer } from './devices/reducer';
+import { notificationsReducer } from './notifications/reducer';
 
 export const reducers = combineReducers({
   auth: authReducer,
@@ -18,4 +19,5 @@ export const reducers = combineReducers({
   tracks: tracksReducer,
   track: trackReducer,
   devices: devicesReducer,
+  notifications: notificationsReducer,
 });

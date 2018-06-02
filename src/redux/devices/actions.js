@@ -32,7 +32,19 @@ export const addDevice = data => ({
     endpoint: '/devices',
     method: 'POST',
     body: data,
-    types: [DEVICE_ADD_REQUEST, DEVICE_ADD_SUCCESS, DEVICE_ADD_FAILURE],
+    types: [
+      DEVICE_ADD_REQUEST,
+      {
+        type: DEVICE_ADD_SUCCESS,
+        meta: { notification: { message: 'New device added' } },
+      },
+      {
+        type: DEVICE_ADD_FAILURE,
+        meta: {
+          notification: { message: 'Something went wrong. Please try again' },
+        },
+      },
+    ],
   },
 });
 
@@ -42,8 +54,16 @@ export const removeDevice = ({ id }) => ({
     method: 'DELETE',
     types: [
       DEVICE_REMOVE_REQUEST,
-      DEVICE_REMOVE_SUCCESS,
-      DEVICE_REMOVE_FAILURE,
+      {
+        type: DEVICE_REMOVE_SUCCESS,
+        meta: { notification: { message: 'Device has been removed' } },
+      },
+      {
+        type: DEVICE_REMOVE_FAILURE,
+        meta: {
+          notification: { message: 'Something went wrong. Please try again' },
+        },
+      },
     ],
   },
 });
@@ -55,8 +75,18 @@ export const updateDevice = data => ({
     body: data,
     types: [
       DEVICE_UPDATE_REQUEST,
-      DEVICE_UPDATE_SUCCESS,
-      DEVICE_UPDATE_FAILURE,
+      {
+        type: DEVICE_UPDATE_SUCCESS,
+        meta: {
+          notification: { message: 'Device has been updated' },
+        },
+      },
+      {
+        type: DEVICE_UPDATE_FAILURE,
+        meta: {
+          notification: { message: 'Something went wrong. Please try again' },
+        },
+      },
     ],
   },
 });

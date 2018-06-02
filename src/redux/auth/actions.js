@@ -32,7 +32,16 @@ export const login = body => ({
     method: 'POST',
     skipAuth: true,
     body,
-    types: [USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE],
+    types: [
+      USER_LOGIN_REQUEST,
+      USER_LOGIN_SUCCESS,
+      {
+        type: USER_LOGIN_FAILURE,
+        meta: {
+          notification: { message: 'Something went wrong. Please try again' },
+        },
+      },
+    ],
   },
 });
 
