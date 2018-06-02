@@ -20,8 +20,6 @@ class Edit extends Component {
   render() {
     const { handleSubmit, invalid } = this.props;
 
-    console.log(this.props);
-
     return (
       <Wrapper>
         <DialogTitle>Edit device name</DialogTitle>

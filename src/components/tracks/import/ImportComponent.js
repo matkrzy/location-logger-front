@@ -14,15 +14,16 @@ import { styles } from './Import.styles';
 import { Wrapper } from 'components/shared/wrapper/Wrapper';
 import { TextField } from 'components/shared/text-field/TextField';
 import { SelectField } from 'components/shared/select-field/SelectField';
+import { ButtonLoader } from 'components/shared/button/Button';
 
 export const field_file = ({
-                             input,
-                             type,
-                             meta: {touched, error, warning},
-                           }) => {
+  input,
+  type,
+  meta: { touched, error, warning },
+}) => {
   delete input.value;
 
-  return <input {...input} type={type}/>;
+  return <input {...input} type={type} />;
 };
 
 class Import extends Component {
@@ -33,7 +34,7 @@ class Import extends Component {
   onCancelClick = () => this.props.dialogClose();
 
   render() {
-    const {handleSubmit, invalid, devices} = this.props;
+    const { handleSubmit, invalid, submitting, devices, loading } = this.props;
 
     return (
       <Wrapper>
@@ -71,17 +72,23 @@ class Import extends Component {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.onCancelClick} color="primary">
+          <Button
+            onClick={this.onCancelClick}
+            color="primary"
+            disabled={submitting}
+          >
             Cancel
           </Button>
-          <Button
+
+          <ButtonLoader
+            type="submit"
+            variant="raised"
             color="primary"
-            autoFocus
-            disabled={invalid}
+            disabled={invalid || submitting}
+            loading={loading}
             onClick={handleSubmit}
-          >
-            Add
-          </Button>
+            label="Add"
+          />
         </DialogActions>
       </Wrapper>
     );

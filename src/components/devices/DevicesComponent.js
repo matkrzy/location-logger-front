@@ -57,13 +57,9 @@ class Devices extends Component {
     dialogOpen({ name: 'detailsDevice', params: { ...device } });
   };
 
-  render() {
-    const { classes, items, loading } = this.props;
+  renderTable = () => {
+    const { classes, items } = this.props;
     const { filter } = this.state;
-
-    if (loading) {
-      return <LoaderComponent size={30} />;
-    }
 
     return (
       <Wrapper>
@@ -79,7 +75,7 @@ class Devices extends Component {
 
           <Button
             color="primary"
-            variant="raised"
+            //variant="raised"
             className={classes.addDevice}
             onClick={() => this.props.dialogOpen({ name: 'addDevice' })}
           >
@@ -125,7 +121,16 @@ class Devices extends Component {
             )}
           </TableBody>
         </Table>
+      </Wrapper>
+    );
+  };
 
+  render() {
+    const { loading } = this.props;
+
+    return (
+      <Wrapper>
+        {loading ? <LoaderComponent size={30} /> : this.renderTable()}
         <DialogContainer name="deleteDevice" component={DeleteContainer} />
         <DialogContainer name="addDevice" component={AddContainer} />
         <DialogContainer name="detailsDevice" component={DetailsContainer} />

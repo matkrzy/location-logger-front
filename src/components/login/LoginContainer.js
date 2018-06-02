@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { LoginComponent } from './LoginComponent';
 import { login } from 'redux/auth/actions';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({auth:{loading}}) => ({loading});
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(login(data)),

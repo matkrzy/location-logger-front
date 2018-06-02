@@ -7,8 +7,10 @@ import createSagaMiddleware from 'redux-saga';
 import { bodyMiddleware } from './middleware/bodyMiddleware';
 import { endpointMiddleware } from './middleware/endpointMiddleware';
 import { authMiddleware } from './middleware/authMiddleware';
-import { errorsMiddleware } from './middleware/errorsMiddleware'
+import { errorsMiddleware } from './middleware/errorsMiddleware';
 import { validationMiddleware } from './middleware/validationMiddleware';
+import { notificationMiddleware } from './middleware/notificationMiddleware';
+
 import { saga } from './saga';
 
 import { reducers } from './reducers';
@@ -21,9 +23,10 @@ const middlewares = [
   endpointMiddleware,
   authMiddleware,
   apiMiddleware,
+  notificationMiddleware,
   errorsMiddleware,
   validationMiddleware,
-  sagaMiddleware
+  sagaMiddleware,
 ];
 
 const composeEnhancers =

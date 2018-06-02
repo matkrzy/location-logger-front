@@ -21,11 +21,24 @@ export const fetchTrackDetails = id => ({
   },
 });
 
-
 export const deleteTrack = id => ({
   [RSAA]: {
     endpoint: `/track/${id}`,
     method: 'DELETE',
-    types: [TRACK_DELETE_REQUEST, TRACK_DELETE_SUCCESS, TRACK_DELETE_FAILURE],
+    types: [
+      TRACK_DELETE_REQUEST,
+      {
+        type: TRACK_DELETE_SUCCESS,
+        meta: {
+          notification: { message: 'Track has been deleted' },
+        },
+      },
+      {
+        type: TRACK_DELETE_FAILURE,
+        meta: {
+          notification: { message: 'Something went wrong. Please try again' },
+        },
+      },
+    ],
   },
 });

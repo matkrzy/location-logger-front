@@ -13,5 +13,6 @@ export const AddContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'addDevice',
+    onSubmitSuccess: (result, dispatch, props) => props.dialogClose(),
   }),
 )(AddComponent);

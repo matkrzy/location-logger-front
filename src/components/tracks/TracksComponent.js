@@ -9,6 +9,7 @@ import {
   Typography,
   TableSortLabel,
   TextField,
+  Button,
 } from 'material-ui';
 import moment from 'moment';
 
@@ -19,7 +20,7 @@ import { DialogContainer } from 'components/shared/dialog/DialogContainer';
 import { DeleteContainer } from './delete/DeleteContainer';
 import { routes } from 'components/routes';
 import { LoaderComponent } from 'components/shared/loader/Loader';
-import { ImportContainer } from "components/tracks/import/ImportContainer";
+import { ImportContainer } from 'components/tracks/import/ImportContainer';
 
 class Tracks extends Component {
   constructor(props) {
@@ -51,17 +52,6 @@ class Tracks extends Component {
       {
         label: 'delete',
         onClick: () => dialogOpen({ name: 'deleteTrack', params: { ...data } }),
-      },
-    ];
-  };
-
-  tracksOptions = () => {
-    const { dialogOpen } = this.props;
-
-    return [
-      {
-        label: 'import',
-        onClick: () => dialogOpen({ name: 'importTrack' }),
       },
     ];
   };
@@ -137,13 +127,9 @@ class Tracks extends Component {
     return name.toLowerCase().includes(filter.toLowerCase());
   };
 
-  render() {
+  renderTable = () => {
     const { orderBy, direction, tracks, filter } = this.state;
-    const { loading, classes } = this.props;
-
-    if (loading) {
-      return <LoaderComponent size={30} />;
-    }
+    const { classes } = this.props;
 
     return (
       <Wrapper>
@@ -156,8 +142,15 @@ class Tracks extends Component {
             onChange={this.handleChange}
             margin="normal"
           />
-        </div>
 
+          <Button
+            color="primary"
+            className={classes.importTrack}
+            onClick={() => this.props.dialogOpen({ name: 'importTrack' })}
+          >
+            Import track
+          </Button>
+        </div>
         <Table>
           <TableHead>
             <TableRow>
@@ -197,9 +190,7 @@ class Tracks extends Component {
                   Duration
                 </TableSortLabel>
               </TableCell>
-              <TableCell numeric>
-                <ActionMenuComponent options={this.tracksOptions()} />
-              </TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -216,6 +207,16 @@ class Tracks extends Component {
             )}
           </TableBody>
         </Table>
+      </Wrapper>
+    );
+  };
+
+  render() {
+    const { loading } = this.props;
+
+    return (
+      <Wrapper>
+        {loading ? <LoaderComponent size={30} /> : this.renderTable()}
 
         <DialogContainer name="deleteTrack" component={DeleteContainer} />
         <DialogContainer name="importTrack" component={ImportContainer} />
