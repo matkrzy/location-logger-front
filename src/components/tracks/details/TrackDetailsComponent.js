@@ -127,12 +127,12 @@ class TrackDetails extends Component {
               .format('HH:mm:ss')
               .toString()}
           />
-          <DetailsColumn label="Max. speed (km/h)" value={`${maxSpeed.toFixed(2)}`} />
-          <DetailsColumn label="Avg. speed (km/h)" value={`${avgSpeed.toFixed(2)}`} />
-          <DetailsColumn label="Min. speed (km/h)" value={`${minSpeed.toFixed(2)}`} />
-          <DetailsColumn label="Max. altitude (m)" value={`${maxAltitude.toFixed(2)}`} />
-          <DetailsColumn label="Avg. altitude (m)" value={`${avgAltitude.toFixed(2)}`} />
-          <DetailsColumn label="Min. altitude (m)" value={`${minAltitude.toFixed(2)}`} />
+          <DetailsColumn label="Max. speed (km/h)" value={`${!!maxSpeed ? maxSpeed.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Avg. speed (km/h)" value={`${!!avgSpeed ? avgSpeed.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Min. speed (km/h)" value={`${!!minSpeed ? minSpeed.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Max. altitude (m)" value={`${!!maxAltitude ? maxAltitude.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Avg. altitude (m)" value={`${!!avgAltitude ? avgAltitude.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Min. altitude (m)" value={`${!!minAltitude ? minAltitude.toFixed(2) : '-'}`} />
         </div>
 
         {!!points && !!points.length ? (
