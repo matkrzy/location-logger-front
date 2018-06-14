@@ -6,7 +6,8 @@ export const validationMiddleware = store => next => action => {
   if (
     action.error &&
     action.payload instanceof Error &&
-    action.payload.status === 400
+    action.payload.status === 400 &&
+    !!action.payload.response
   ) {
     const { errors, message } = action.payload.response;
 

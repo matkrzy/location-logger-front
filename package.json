@@ -9,6 +9,7 @@
     "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.22.0",
+    "prettier": "^1.13.5",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-app-rewire-hot-loader": "^1.0.1",
@@ -37,5 +38,10 @@
   },
   "devDependencies": {
     "flow-bin": "^0.68.0"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }

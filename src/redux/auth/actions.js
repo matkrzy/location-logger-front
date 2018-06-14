@@ -38,7 +38,7 @@ export const login = body => ({
       {
         type: USER_LOGIN_FAILURE,
         meta: {
-          notification: { message: 'Something went wrong. Please try again' },
+          notification: {message: 'Something went wrong. Please try again'},
         },
       },
     ],

@@ -2,17 +2,7 @@ import { LoaderComponent } from 'components/shared/loader/Loader';
 import { Wrapper } from 'components/shared/wrapper/Wrapper';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  withStyles,
-  Drawer,
-  Typography,
-  Icon,
-  Avatar,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from 'material-ui';
+import { withStyles, Drawer, Typography, Icon, Avatar, List, ListItem, ListItemIcon, ListItemText } from 'material-ui';
 
 import { styles } from './Menu.styles';
 import { routes } from '../routes';
@@ -20,7 +10,7 @@ import { routes } from '../routes';
 class Menu extends Component {
   menu = () => {
     const { classes, logout } = this.props;
-    return [
+    const menu = [
       {
         icon: 'history',
         label: 'History',
@@ -43,12 +33,22 @@ class Menu extends Component {
       //  activeClassName:classes.active
       //},
       {
+        icon: 'verified_user',
+        label: 'Users',
+        to: routes.users,
+        component: NavLink,
+        activeClassName: classes.active,
+        visible: this.props.user.role.includes('ADMIN'),
+      },
+      {
         icon: 'close',
         label: 'Logout',
         component: null,
         onClick: logout,
       },
     ];
+
+    return menu.filter(({ visible }) => (visible === undefined ? true : visible));
   };
 
   render() {
@@ -84,13 +84,8 @@ class Menu extends Component {
             </Typography>
 
             <List component="nav" className={classes.menu}>
-              {this.menu().map(({ icon, label, ...other }, i) => (
-                <ListItem
-                  key={i}
-                  button
-                  className={classes.menuItem}
-                  {...other}
-                >
+              {this.menu().map(({ icon, label, visible, ...other }, i) => (
+                <ListItem key={i} button className={classes.menuItem} {...other}>
                   <ListItemIcon>
                     <Icon>{icon}</Icon>
                   </ListItemIcon>
