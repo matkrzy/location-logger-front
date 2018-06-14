@@ -1,21 +1,7 @@
 import { LoaderComponent } from 'components/shared/loader/Loader';
 import React, { Component } from 'react';
-import {
-  withStyles,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  Typography,
-} from 'material-ui';
-import {
-  AreaChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Area,
-  ResponsiveContainer,
-} from 'recharts';
+import { withStyles, RadioGroup, Radio, FormControlLabel, Typography } from 'material-ui';
+import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContainer } from 'recharts';
 
 import moment from 'moment';
 
@@ -49,9 +35,7 @@ class TrackDetails extends Component {
           </div>
           <div className={classes.tooltipRow}>
             <span>{`${chartData}`}:</span>
-            <span>{`${other[chartData]}(${chartData === 'speed'
-              ? 'km/h'
-              : 'm'})`}</span>
+            <span>{`${other[chartData]}(${chartData === 'speed' ? 'km/h' : 'm'})`}</span>
           </div>
         </div>
       );
@@ -63,7 +47,11 @@ class TrackDetails extends Component {
   componentWillMount() {
     this.props.toggleMenu();
 
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     this.props.fetchTrackDetails(id);
   }
 
@@ -116,10 +104,7 @@ class TrackDetails extends Component {
 
     return (
       <Wrapper>
-        <MapComponent
-          points={points}
-          ref={map => (map !== null ? (this.map = map) : null)}
-        />
+        <MapComponent points={points} ref={map => (map !== null ? (this.map = map) : null)} />
         <div className={classes.detailsPanel}>
           {!!name && <DetailsColumn label="Name" value={name} />}
           <DetailsColumn
@@ -128,14 +113,8 @@ class TrackDetails extends Component {
               .format('DD/MM/YYYY')
               .toString()}
           />
-          <DetailsColumn
-            label="Distance (km)"
-            value={parseFloat((!!distance ? distance : 0.0) / 1000).toFixed(2)}
-          />
-          <DetailsColumn
-            label="Duration (h)"
-            value={this.formatDuration(duration)}
-          />
+          <DetailsColumn label="Distance (km)" value={parseFloat((!!distance ? distance : 0.0) / 1000).toFixed(2)} />
+          <DetailsColumn label="Duration (h)" value={this.formatDuration(duration)} />
           <DetailsColumn
             label="Start time"
             value={moment(startTime)
@@ -148,12 +127,12 @@ class TrackDetails extends Component {
               .format('HH:mm:ss')
               .toString()}
           />
-          <DetailsColumn label="Max. speed (km/h)" value={`${maxSpeed}`} />
-          <DetailsColumn label="Avg. speed (km/h)" value={`${avgSpeed}`} />
-          <DetailsColumn label="Min. speed (km/h)" value={`${minSpeed}`} />
-          <DetailsColumn label="Max. altitude (m)" value={`${maxAltitude}`} />
-          <DetailsColumn label="Avg. altitude (m)" value={`${avgAltitude}`} />
-          <DetailsColumn label="Min. altitude (m)" value={`${minAltitude}`} />
+          <DetailsColumn label="Max. speed (km/h)" value={`${maxSpeed.toFixed(2)}`} />
+          <DetailsColumn label="Avg. speed (km/h)" value={`${avgSpeed.toFixed(2)}`} />
+          <DetailsColumn label="Min. speed (km/h)" value={`${minSpeed.toFixed(2)}`} />
+          <DetailsColumn label="Max. altitude (m)" value={`${maxAltitude.toFixed(2)}`} />
+          <DetailsColumn label="Avg. altitude (m)" value={`${avgAltitude.toFixed(2)}`} />
+          <DetailsColumn label="Min. altitude (m)" value={`${minAltitude.toFixed(2)}`} />
         </div>
 
         {!!points && !!points.length ? (
@@ -165,33 +144,17 @@ class TrackDetails extends Component {
               value={chartData}
               onChange={this.handleChange}
             >
-              <FormControlLabel
-                value="speed"
-                control={<Radio color="primary" />}
-                label="Speed"
-              />
-              <FormControlLabel
-                value="altitude"
-                control={<Radio color="primary" />}
-                label="Altitude"
-              />
+              <FormControlLabel value="speed" control={<Radio color="primary" />} label="Speed" />
+              <FormControlLabel value="altitude" control={<Radio color="primary" />} label="Altitude" />
             </RadioGroup>
             <div className={classes.chart}>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={points}>
                   <XAxis dataKey="duration" />
-                  <YAxis
-                    type="number"
-                    domain={[chartMin, Math.round(chartMax) + 2]}
-                  />
+                  <YAxis type="number" domain={[chartMin, Math.round(chartMax) + 2]} />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Tooltip content={this.updateMapPoint} />
-                  <Area
-                    type="monotone"
-                    dataKey={chartData}
-                    stroke={chartStrokeColor}
-                    fill={chartFillColor}
-                  />
+                  <Area type="monotone" dataKey={chartData} stroke={chartStrokeColor} fill={chartFillColor} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
