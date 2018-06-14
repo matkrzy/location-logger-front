@@ -5,6 +5,7 @@ import {
   DEVICE_REMOVE_SUCCESS,
   DEVICE_UPDATE_SUCCESS,
 } from './action-types';
+
 import { fetchDevices } from './actions';
 import { dialogClose } from '../dialog/actions';
 

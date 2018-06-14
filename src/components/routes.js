@@ -14,4 +14,5 @@ export const routes = {
   devices: '/devices',
   device: '/device/',
   deviceById: '/device/:id',
+  users: '/users'
 };
