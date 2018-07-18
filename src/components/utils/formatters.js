@@ -27,7 +27,7 @@ export const formatDistance = distance => {
   }
 
   distance = Math.round((distance / 1000) * 100) / 100;
-  return parseFloat(distance / 1000).toFixed(2) + 'km';
+  return parseFloat(distance).toFixed(2) + 'km';
 };
 
 export const formatSpeed = speed => (!!speed ? speed.toFixed(2) + 'km/h' : '-');
