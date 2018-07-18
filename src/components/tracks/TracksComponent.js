@@ -11,7 +11,8 @@ import {
   TextField,
   Button,
 } from 'material-ui';
-import moment from 'moment';
+
+import { formatDate, formatDistance, formatDuration } from 'components/utils/formatters';
 
 import { styles } from './Tracks.styles';
 import { Wrapper } from '../shared/wrapper/Wrapper';
@@ -56,26 +57,15 @@ class Tracks extends Component {
     ];
   };
 
-  formatDate = date => moment(date).format('DD/MM/YYYY');
-  formatDistance = distance => Math.round(distance / 1000 * 100) / 100;
-
   renderRow = (track, i) => {
     const { classes } = this.props;
 
     return (
       <TableRow hover key={i} className={classes.row}>
-        <TableCell onClick={() => this.onRowClick(track.id)}>
-          {track.name}
-        </TableCell>
-        <TableCell onClick={() => this.onRowClick(track.id)}>
-          {this.formatDate(track.date)}
-        </TableCell>
-        <TableCell
-          onClick={() => this.onRowClick(track.id)}
-        >{`${this.formatDistance(track.distance)} km`}</TableCell>
-        <TableCell
-          onClick={() => this.onRowClick(track.id)}
-        >{`${track.duration}`}</TableCell>
+        <TableCell onClick={() => this.onRowClick(track.id)}>{track.name}</TableCell>
+        <TableCell onClick={() => this.onRowClick(track.id)}>{formatDate(track.date)}</TableCell>
+        <TableCell onClick={() => this.onRowClick(track.id)}>{`${formatDistance(track.distance)}`}</TableCell>
+        <TableCell onClick={() => this.onRowClick(track.id)}>{`${formatDuration(track.duration)}`}</TableCell>
         <TableCell numeric>
           <ActionMenuComponent options={this.options(track)} />
         </TableCell>
@@ -195,9 +185,7 @@ class Tracks extends Component {
           </TableHead>
           <TableBody>
             {!!tracks.length ? (
-              tracks
-                .filter(track => this.filterTrack(track))
-                .map((track, i) => this.renderRow(track, i))
+              tracks.filter(track => this.filterTrack(track)).map((track, i) => this.renderRow(track, i))
             ) : (
               <TableRow>
                 <TableCell colSpan={5}>

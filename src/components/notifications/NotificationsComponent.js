@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Slide, Snackbar } from 'material-ui';
+import { Snackbar } from 'material-ui';
 
 export class NotificationsComponent extends Component {
   state = {
@@ -48,7 +48,6 @@ export class NotificationsComponent extends Component {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={isOpen}
         message={<span>{message}</span>}
-        TransitionComponent={props => <Slide {...props} direction="down" />}
         onClose={this.handleClose}
         onExited={this.handleExited}
       />
