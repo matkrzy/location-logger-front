@@ -3,7 +3,14 @@ import React, { Component } from 'react';
 import { withStyles, RadioGroup, Radio, FormControlLabel, Typography } from 'material-ui';
 import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContainer } from 'recharts';
 
-import moment from 'moment';
+import {
+  formatDate,
+  formatDistance,
+  formatDuration,
+  formatTime,
+  formatSpeed,
+  formatAltitude,
+} from 'components/utils/formatters';
 
 import { styles } from './TrackDetails.style';
 import { Wrapper } from '../../shared/wrapper/Wrapper';
@@ -20,8 +27,8 @@ class TrackDetails extends Component {
     const { classes } = this.props;
 
     if (active) {
-      const { payload, label } = props;
-      const { lat, lng, ...other } = payload[0].payload;
+      const { payload } = props;
+      const { lat, lng, duration, ...other } = payload[0].payload;
       const { chartData } = this.state;
 
       if (this.map) {
@@ -31,11 +38,11 @@ class TrackDetails extends Component {
       return (
         <div className={classes.tooltip}>
           <div className={classes.tooltipRow}>
-            <span>time:</span> <span>{label}(h)</span>
+            <span>time:</span> <span>{formatDuration(duration)}</span>
           </div>
           <div className={classes.tooltipRow}>
             <span>{`${chartData}`}:</span>
-            <span>{`${other[chartData]}(${chartData === 'speed' ? 'km/h' : 'm'})`}</span>
+            <span>{chartData === 'speed' ? formatSpeed(other[chartData]) : formatAltitude(other[chartData])}</span>
           </div>
         </div>
       );
@@ -61,14 +68,6 @@ class TrackDetails extends Component {
 
   handleChange = event => {
     this.setState({ chartData: event.target.value });
-  };
-
-  formatDuration = milis => {
-    const duration = moment.duration(milis, 'seconds');
-    return moment
-      .utc(duration.as('milliseconds'))
-      .format('HH:mm:ss')
-      .toString();
   };
 
   render() {
@@ -107,32 +106,17 @@ class TrackDetails extends Component {
         <MapComponent points={points} ref={map => (map !== null ? (this.map = map) : null)} />
         <div className={classes.detailsPanel}>
           {!!name && <DetailsColumn label="Name" value={name} />}
-          <DetailsColumn
-            label="Date"
-            value={moment(date)
-              .format('DD/MM/YYYY')
-              .toString()}
-          />
-          <DetailsColumn label="Distance (km)" value={parseFloat((!!distance ? distance : 0.0) / 1000).toFixed(2)} />
-          <DetailsColumn label="Duration (h)" value={this.formatDuration(duration)} />
-          <DetailsColumn
-            label="Start time"
-            value={moment(startTime)
-              .format('HH:mm:ss')
-              .toString()}
-          />
-          <DetailsColumn
-            label="End time"
-            value={moment(endTime)
-              .format('HH:mm:ss')
-              .toString()}
-          />
-          <DetailsColumn label="Max. speed (km/h)" value={`${!!maxSpeed ? maxSpeed.toFixed(2) : '-'}`} />
-          <DetailsColumn label="Avg. speed (km/h)" value={`${!!avgSpeed ? avgSpeed.toFixed(2) : '-'}`} />
-          <DetailsColumn label="Min. speed (km/h)" value={`${!!minSpeed ? minSpeed.toFixed(2) : '-'}`} />
-          <DetailsColumn label="Max. altitude (m)" value={`${!!maxAltitude ? maxAltitude.toFixed(2) : '-'}`} />
-          <DetailsColumn label="Avg. altitude (m)" value={`${!!avgAltitude ? avgAltitude.toFixed(2) : '-'}`} />
-          <DetailsColumn label="Min. altitude (m)" value={`${!!minAltitude ? minAltitude.toFixed(2) : '-'}`} />
+          <DetailsColumn label="Date" value={formatDate(date)} />
+          <DetailsColumn label="Distance (km)" value={formatDistance(distance)} />
+          <DetailsColumn label="Duration (h)" value={formatDuration(duration)} />
+          <DetailsColumn label="Start time" value={formatTime(startTime)} />
+          <DetailsColumn label="End time" value={formatTime(endTime)} />
+          <DetailsColumn label="Max. speed (km/h)" value={formatSpeed(maxSpeed)} />
+          <DetailsColumn label="Avg. speed (km/h)" value={formatSpeed(avgSpeed)} />
+          <DetailsColumn label="Min. speed (km/h)" value={formatSpeed(minSpeed)} />
+          <DetailsColumn label="Max. altitude (m)" value={formatAltitude(maxAltitude)} />
+          <DetailsColumn label="Avg. altitude (m)" value={formatAltitude(avgAltitude)} />
+          <DetailsColumn label="Min. altitude (m)" value={formatAltitude(minAltitude)} />
         </div>
 
         {!!points && !!points.length ? (
